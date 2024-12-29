@@ -1,0 +1,69 @@
+React Doc
+if we call the functional component directly , it will not use the 
+internal mechanism of react, it returns the react element but if 
+look on the type of of element, it is the native tag type,the component will not 
+go through the life cycle methods, like mounting face, updating face, unmounting face. 
+
+Build Tools
+
+1) Compiler 
+babel compiler transpile the code of jsx in to javascript that will
+render on web page. somethinh like jsxDev.createElement
+2)Bundling: 
+multiple components bundled together is a single js file. 
+3)Code Splitting: 
+Spliting the diff parts of application asynchronously. 
+4) OPtimization: 
+1) Dead Code Elimination: 
+process of removing the unused code and creating an efficient and small bundle file. 
+it is achieved during the build process by tools like 
+WebPack, rollup, vite with comnination of tree shaking. 
+if any components is not shaking a tree, it is unused and eliminated 
+during the builing process.
+Image optimization
+
+Dev Server: hot module replacement. 
+it will imdiately reflect the changes done in jsx to the web page without 
+reloading the page. 
+
+Some common build tools: 
+1) WebPack: 
+Analyze dependecies and create Graph. 
+using plugins to exdent the features like babel-core for transpiling,
+code splitting, html files loader. 
+HtmlWebpack plugin for generating html files. 
+
+
+3) Vite: 
+uses native ESM(ES modules) and doesn't bundle files during the development
+built in support for react, Vue,
+uses Rollup under the hood for building the application efficient; 
+
+
+Dealing with large websites 
+if project envolves older libraries that are not suported by 
+ESM. 
+fine control over each part of build process. 
+
+large enterprices applications.  
+
+
+TailWind CSS 
+utility first framework 
+wirting css for every small thing we created, then the css file 
+become very large. 
+when you create a poster , 
+position, 
+margin
+padding 
+border
+width
+height
+
+
+There is concept of pre design components 
+Tailwind gives you small individual classes for diff margins or 
+diff paddings. 
+Customizable and configurable, 
+Responsive design
+
