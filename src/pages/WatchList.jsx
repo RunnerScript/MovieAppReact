@@ -1,18 +1,20 @@
-import React from "react";
-import { useEffect } from "react";
-import { useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import genreids from "../constants";
+import { WatchListContext } from "../contexts/WatchListContext";
 function WatchList() {
-    const [watchList, setWatchList] = useState([]);
+    // const [watchList, setWatchList] = useState([]);
+    const { watchList, setWatchList } = useContext(WatchListContext);
     const [search, setSearch] = useState('');
     const [geners, setGeners] = useState(['All Geners']);
     const [currentGenre, setCurrentGenre] = useState('All Geners');
+
     const handleSearch = (e) => {
         setSearch(e.target.value);
     }
     const handleGenreClick = (genre) => {
         setCurrentGenre(genre);
     }
+
     useEffect(() => {
         const movies = JSON.parse(localStorage.getItem('movies'));
         setWatchList(movies);
