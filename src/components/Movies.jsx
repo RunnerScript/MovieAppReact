@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import Pagination from "./Pagination";
 import MovieCard from "./MovieCard";
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
 import axios from "axios";
 import { useContext } from "react";
 import WatchListContextWrapper, { WatchListContext } from "../contexts/WatchListContext";
@@ -10,7 +10,26 @@ function Movies() {
     const [movies, setMovies] = useState([]);
     const [pageNo, setPageNo] = useState(1);
     const { watchList, setWatchList, addToWatchList, removeFromWatchList } = useContext(WatchListContext);
+    const observer = useRef(null);
+    const loadNextElements = (elem) => {
+        console.log("pradee");
+        console.log(elem);
+        if (!elem) return;
+        if (observer.current) {
+            observer.current.disconnect(); // Disconnect the old observer
+        }
 
+        observer.current = new IntersectionObserver((entries) => {
+            const [entry] = entries;
+            console.log(entry);
+            if (entry.target.isIntersecting) {
+                setPageNo((prevPage) => prevPage + 1)
+            }
+        }, {
+            threshold: 1
+        });
+        observer.current.observe(elem);
+    }
     useEffect(() => {
         async function getMovies() {
             try {
@@ -45,9 +64,16 @@ function Movies() {
             <div className="flex justify-evenly flex-wrap gap-8">
 
                 {movies.map((movie, index) => {
-                    return (
-                        <MovieCard key={movie.id} movie={movie} addToWatchList={addToWatchList} watchList={watchList} removeFromWatchList={removeFromWatchList} />
-                    )
+                    if (index + 1 === movies.length) {
+                        return (
+                            <MovieCard ref={(elem) => loadNextElements(elem)} key={movie.id} movie={movie} addToWatchList={addToWatchList} watchList={watchList} removeFromWatchList={removeFromWatchList} />
+                        )
+                    } else {
+                        return (
+                            <MovieCard key={movie.id} movie={movie} addToWatchList={addToWatchList} watchList={watchList} removeFromWatchList={removeFromWatchList} />
+                        )
+                    }
+
                 })}
             </div>
             <Pagination

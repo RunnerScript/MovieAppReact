@@ -6,12 +6,8 @@ import WatchListContextWrapper from './contexts/WatchListContext';
 function App() {
   return (
     <>
-      {/* <Navigation />
-      <Routing /> */}
       <Navbar />
-      <WatchListContextWrapper>
-        <MovieRouter />
-      </WatchListContextWrapper>
+      <MovieRouter />
     </>
   )
 }
