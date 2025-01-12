@@ -41,6 +41,8 @@ function WatchList() {
         })
         setWatchList([...sortDeceding])
     }
+
+
     return (
         <>
             <div className="flex justify-center p-4 mt-4">
@@ -80,6 +82,7 @@ function WatchList() {
                         if (currentGenre === 'All Geners') {
                             return true;
                         } else {
+
                             return genreids[movie.genre_ids[0]] === currentGenre;
                         }
                     }).filter((movie) => {
