@@ -15,8 +15,8 @@ export const useFetchData = (pageNo) => {
         async function getMovies() {
             try {
                 const response = await axios.get(`https://api.themoviedb.org/3/trending/movie/day?api_key=apikey&language=en-US&page=${pageNo}`);
-                const movies = response.data.results;
-                setMovies(movies);
+                const moviesData = response.data.results;
+                setMovies([...movies, ...moviesData]);
                 console.log(movies)
             }
             catch (e) {

@@ -1,24 +1,35 @@
 import React, { useState } from "react";
 import Pagination from "./Pagination";
 import MovieCard from "./MovieCard";
-import { useContext } from "react";
+import { useContext, useRef } from "react";
 import { useFetchData } from "../hooks/useFetchData";
 import WatchListContextWrapper, { WatchListContext } from "../contexts/WatchListContext";
 function Movies() {
-
     const [pageNo, setPageNo] = useState(1);
-    const { watchList, setWatchList, addToWatchList, removeFromWatchList } = useContext(WatchListContext)
     const { movies, error, isLoading } = useFetchData(pageNo);
+    const observer = useRef(null);
 
+    // const handleNext = () => {
+    //     if (pageNo < movies.length - 1) setPageNo(pageNo + 1)
+    // }
 
-    const handleNext = () => {
-        if (pageNo < movies.length - 1) setPageNo(pageNo + 1)
+    // const handlePrevious = () => {
+    //     if (pageNo > 1) setPageNo(pageNo - 1);
+    // }
+
+    const getLastElementRef = (elem) => {
+        if (!elem || isLoading) return;
+        const callback = (entries) => {
+            const [entry] = entries;
+            if (entry.isIntersecting) {
+                setPageNo(prevPage => prevPage + 1);
+            }
+        }
+        observer.current = new IntersectionObserver(callback, {
+            threshold: 1
+        });
+        observer.current.observe(elem);
     }
-
-    const handlePrevious = () => {
-        if (pageNo > 1) setPageNo(pageNo - 1);
-    }
-
 
     return error ? 'Error Fetching Data' : isLoading ? "Loading..." : (
         <div className="text-2xl font-bold text-center m-5">
@@ -26,23 +37,17 @@ function Movies() {
             <div className="flex justify-evenly flex-wrap gap-8">
 
                 {movies.map((movie, index) => {
-                    if (index + 1 === movies.length) {
-                        return (
-                            <MovieCard key={movie.id} movie={movie} addToWatchList={addToWatchList} watchList={watchList} removeFromWatchList={removeFromWatchList} />
-                        )
-                    } else {
-                        return (
-                            <MovieCard key={movie.id} movie={movie} addToWatchList={addToWatchList} watchList={watchList} removeFromWatchList={removeFromWatchList} />
-                        )
-                    }
+                    return (
+                        <MovieCard isLast={index === movies.length - 1 ? true : false} key={movie.id} movie={movie} getLastElementRef={getLastElementRef} />
+                    )
 
                 })}
             </div>
-            <Pagination
+            {/* <Pagination
                 pageNo={pageNo}
                 handleNext={handleNext}
                 handlePrevious={handlePrevious}
-            />
+            /> */}
         </div>
     )
 

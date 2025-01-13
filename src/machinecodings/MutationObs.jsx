@@ -11,6 +11,8 @@ export default function MutationObs() {
 
         if (targetElement) {
             const callback = (mutations) => {
+
+                console.log(mutations);
                 setLog((prev) => [
                     ...prev,
                     "Child node added or removed.",

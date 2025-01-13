@@ -6,12 +6,11 @@ import { BrowserRouter } from 'react-router-dom'
 // import StopWatch from './machinecodings/StopWatch'
 // import MutationObs from './machinecodings/MutationObs'
 import WatchListContextWrapper from './contexts/WatchListContext'
+
 createRoot(document.getElementById('root')).render(
-  <StrictMode>
-    <WatchListContextWrapper>
-      <BrowserRouter>
-        <App />
-      </BrowserRouter>
-    </WatchListContextWrapper>
-  </StrictMode>,
+  <WatchListContextWrapper>
+    <BrowserRouter>
+      <App />
+    </BrowserRouter>
+  </WatchListContextWrapper>
 )
