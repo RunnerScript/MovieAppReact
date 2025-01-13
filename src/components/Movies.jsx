@@ -25,6 +25,7 @@ function Movies() {
                 setPageNo(prevPage => prevPage + 1);
             }
         }
+        if (observer.current) observer.current.disconnect();
         observer.current = new IntersectionObserver(callback, {
             threshold: 1
         });
