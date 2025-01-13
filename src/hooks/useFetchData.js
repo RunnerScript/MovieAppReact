@@ -14,7 +14,7 @@ export const useFetchData = (pageNo) => {
     useEffect(() => {
         async function getMovies() {
             try {
-                const response = await axios.get(`https://api.themoviedb.org/3/trending/movie/day?api_key=4d5faadd2245e5595c32f0c35d14f975&language=en-US&page=${pageNo}`);
+                const response = await axios.get(`https://api.themoviedb.org/3/trending/movie/day?api_key=apikey&language=en-US&page=${pageNo}`);
                 const movies = response.data.results;
                 setMovies(movies);
                 console.log(movies)
