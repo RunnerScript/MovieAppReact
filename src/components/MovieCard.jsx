@@ -3,7 +3,7 @@ import { useContext } from "react";
 import { WatchListContext } from "../contexts/WatchListContext";
 
 const MovieCard = ({ movie, isLast, getLastElementRef }) => {
-    const { watchList, removeFromWatchList } = useContext(WatchListContext);
+    const { watchList, removeFromWatchList, addToWatchList } = useContext(WatchListContext);
 
     const doesContain = (movie) => {
         return watchList.some((mv) => mv.id === movie.id);
